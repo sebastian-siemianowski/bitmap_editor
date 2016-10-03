@@ -109,7 +109,7 @@ describe CommandParser do
     end
 
     it 'triggers error when X is bigger than X of the bitmap ' do
-      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>['foo']})
+      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>["X needs to be smaller or equal than 9"]})
       command1 = 'I 10 10'
       command2 = 'V 10 5 9 C'
       parser.parse(command1)
@@ -117,7 +117,7 @@ describe CommandParser do
     end
 
     it 'triggers error if X is not numerical' do
-      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>['foo']})
+      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>["Please provide positive number for X"]})
       command1 = 'I 10 10'
       command2 = 'V I 5 9 C'
       parser.parse(command1)
@@ -125,7 +125,7 @@ describe CommandParser do
     end
 
     it 'triggers error if y1 is not numerical' do
-      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>['foo']})
+      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>["Please provide positive number for Y1"]})
       command1 = 'I 10 10'
       command2 = 'V 0 I 9 C'
       parser.parse(command1)
@@ -133,7 +133,7 @@ describe CommandParser do
     end
 
     it 'triggers error is y2 is not numerical' do
-      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>['foo']})
+      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>["Please provide positive number for Y2"]})
       command1 = 'I 10 10'
       command2 = 'V 0 5 I C'
       parser.parse(command1)
@@ -141,7 +141,7 @@ describe CommandParser do
     end
 
     it 'triggers error if color is not present' do
-      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>['foo']})
+      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>["Please provide color"]})
       command1 = 'I 10 10'
       command2 = 'V 0 5 9 '
       parser.parse(command1)
@@ -149,13 +149,13 @@ describe CommandParser do
     end
 
     it 'triggers error if bitmap is not present' do
-      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>['foo']})
+      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>["Please create bitmap first"]})
       command1 = 'V 0 5 9 C'
       parser.parse(command1)
     end
 
     it 'triggers error if y1 is bigger that y2' do
-      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>['foo']})
+      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>["Y1 needs to be smaller than Y2"]})
       command1 = 'I 10 10'
       command2 = 'V 0 6 3 C'
       parser.parse(command1)
@@ -163,17 +163,17 @@ describe CommandParser do
     end
 
     it 'triggers error if y1 is bigger that y of the bitmap' do
-      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>['foo']})
+      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>["Y1 needs to be smaller or equal than 9"]})
       command1 = 'I 10 10'
-      command2 = 'V 0 10 9 C'
+      command2 = 'V 0 10 10 C'
       parser.parse(command1)
       parser.parse(command2)
     end
 
     it 'triggers error if y2 is bigger than y of the bitmap' do
-      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>['foo']})
+      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>["Y2 needs to be smaller or equal than 9"]})
       command1 = 'I 10 10'
-      command2 = 'V 0 5 10 C'
+      command2 = 'V 0 9 10 C'
       parser.parse(command1)
       parser.parse(command2)
     end
@@ -190,7 +190,7 @@ describe CommandParser do
 
 
     it 'triggers error when Y is bigger than Y of the bitmap ' do
-      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>['foo']})
+      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>["Y needs to be smaller or equal than 9"]})
       command1 = 'I 10 10'
       command2 = 'H 10 5 9 C'
       parser.parse(command1)
@@ -198,7 +198,7 @@ describe CommandParser do
     end
 
     it 'triggers error if Y is not numerical' do
-      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>['foo']})
+      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>["Please provide positive number for Y"]})
       command1 = 'I 10 10'
       command2 = 'H I 5 9 C'
       parser.parse(command1)
@@ -206,7 +206,7 @@ describe CommandParser do
     end
 
     it 'triggers error if X1 is not numerical' do
-      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>['foo']})
+      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>["Please provide positive number for X1"]})
       command1 = 'I 10 10'
       command2 = 'H 0 I 9 C'
       parser.parse(command1)
@@ -214,7 +214,7 @@ describe CommandParser do
     end
 
     it 'triggers error is X2 is not numerical' do
-      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>['foo']})
+      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>["Please provide positive number for X2"]})
       command1 = 'I 10 10'
       command2 = 'H 0 5 I C'
       parser.parse(command1)
@@ -222,7 +222,7 @@ describe CommandParser do
     end
 
     it 'triggers error if color is not present' do
-      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>['foo']})
+      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>["Please provide color"]})
       command1 = 'I 10 10'
       command2 = 'H 0 5 9 '
       parser.parse(command1)
@@ -230,13 +230,13 @@ describe CommandParser do
     end
 
     it 'triggers error if bitmap is not present' do
-      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>['foo']})
+      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>["Please create bitmap first"]})
       command1 = 'H 0 5 9 C'
       parser.parse(command1)
     end
 
     it 'triggers error if X1 is bigger that X2' do
-      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>['foo']})
+      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>["X1 needs to be smaller than X2"]})
       command1 = 'I 10 10'
       command2 = 'H 0 6 3 C'
       parser.parse(command1)
@@ -244,15 +244,15 @@ describe CommandParser do
     end
 
     it 'triggers error if X1 is bigger that X of the bitmap' do
-      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>['foo']})
+      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>["X1 needs to be smaller or equal than 9"]})
       command1 = 'I 10 10'
-      command2 = 'H 0 10 9 C'
+      command2 = 'H 0 10 10 C'
       parser.parse(command1)
       parser.parse(command2)
     end
 
     it 'triggers error if X2 is bigger than X of the bitmap' do
-      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>['foo']})
+      expect(parser).to receive(:show_errors).with({:valid=>false, :errors=>["X2 needs to be smaller or equal than 9"]})
       command1 = 'I 10 10'
       command2 = 'H 0 5 10 C'
       parser.parse(command1)

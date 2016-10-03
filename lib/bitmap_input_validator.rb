@@ -41,29 +41,73 @@ class BitmapInputValidator
       return {valid: false , errors: ['Please provide positive number for X2']}
     end
 
-    if x1 > x2
+    if x1.to_i > x2.to_i
       return {valid: false , errors: ['X1 needs to be smaller than X2']}
     end
 
-    if x1 > (bitmap.x - 1)
-      return {valid: false , errors: ["X1 needs to be smaller than #{(bitmap.x - 1)}"]}
+    if x1.to_i > (bitmap.x - 1)
+      return {valid: false , errors: ["X1 needs to be smaller or equal than #{(bitmap.x - 1)}"]}
     end
 
-    if x2 > (bitmap.x - 1)
-      return {valid: false , errors: ["X2 needs to be smaller than #{(bitmap.x - 1)}"]}
+    if x2.to_i > (bitmap.x - 1)
+      return {valid: false , errors: ["X2 needs to be smaller or equal than #{(bitmap.x - 1)}"]}
     end
 
-    if y > (bitmap.x - 1)
-      return {valid: false , errors: ["Y needs to be smaller than #{(bitmap.y - 1)}"]}
+    if y.to_i > (bitmap.y - 1)
+      return {valid: false , errors: ["Y needs to be smaller or equal than #{(bitmap.y - 1)}"]}
     end
 
     if color.nil?
-      return {valid: false , errors: ['X1 needs to be smaller than X2']}
+      return {valid: false , errors: ['Please provide color']}
     end
+
+    {valid: true}
   end
 
   def validate_vertical_segment_command(input)
+    x = input[:x]
+    y1 = input[:y1]
+    y2 = input[:y2]
+    color = input[:color]
+    bitmap = input[:bitmap]
 
+    if bitmap.nil?
+      return {valid: false , errors: ['Please create bitmap first']}
+    end
+
+    unless is_a_positive_number(x)
+      return {valid: false , errors: ['Please provide positive number for X']}
+    end
+
+    unless is_a_positive_number(y1)
+      return {valid: false , errors: ['Please provide positive number for Y1']}
+    end
+
+    unless is_a_positive_number(y2)
+      return {valid: false , errors: ['Please provide positive number for Y2']}
+    end
+
+    if y1.to_i > y2.to_i
+      return {valid: false , errors: ['Y1 needs to be smaller than Y2']}
+    end
+
+    if y1.to_i > (bitmap.y - 1)
+      return {valid: false , errors: ["Y1 needs to be smaller or equal than #{(bitmap.y - 1)}"]}
+    end
+
+    if y2.to_i > (bitmap.y - 1)
+      return {valid: false , errors: ["Y2 needs to be smaller or equal than #{(bitmap.y - 1)}"]}
+    end
+
+    if x.to_i > (bitmap.x - 1)
+      return {valid: false , errors: ["X needs to be smaller or equal than #{(bitmap.x - 1)}"]}
+    end
+
+    if color.nil?
+      return {valid: false , errors: ['Please provide color']}
+    end
+
+    {valid: true}
   end
 
   def validate_clear_command(input_hash)

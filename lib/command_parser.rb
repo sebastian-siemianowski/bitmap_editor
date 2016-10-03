@@ -68,14 +68,26 @@ class CommandParser
 
   def draw_vertical_segment(input)
     input_array = parse_to_array(input)
-    options = {x: input_array[1].to_i, y1: input_array[2].to_i, y2: input_array[3].to_i, color: input_array[4]}
-    @bitmap.draw_vertical_segment(options)
+    validation_options = {x: input_array[1], y1: input_array[2], y2: input_array[3], color: input_array[4], bitmap: @bitmap}
+    validation_result = @validator.validate_vertical_segment_command(validation_options)
+    if validation_result[:valid]
+      options = {x: input_array[1].to_i, y1: input_array[2].to_i, y2: input_array[3].to_i, color: input_array[4]}
+      @bitmap.draw_vertical_segment(options)
+    else
+      show_errors(validation_result)
+    end
   end
 
   def draw_horizontal_segment(input)
     input_array = parse_to_array(input)
-    options = {y: input_array[1].to_i, x1: input_array[2].to_i, x2: input_array[3].to_i, color: input_array[4]}
-    @bitmap.draw_horizontal_segment(options)
+    validation_options = {y: input_array[1], x1: input_array[2], x2: input_array[3], color: input_array[4], bitmap: @bitmap}
+    validation_result = @validator.validate_horizontal_segment_command(validation_options)
+    if validation_result[:valid]
+      options = {y: input_array[1].to_i, x1: input_array[2].to_i, x2: input_array[3].to_i, color: input_array[4]}
+      @bitmap.draw_horizontal_segment(options)
+    else
+      show_errors(validation_result)
+    end
   end
 
   def show_image
